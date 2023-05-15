@@ -1,0 +1,13 @@
+// our flutter dart function for executing this functions is 👇👇👇👇
+// Flutter side code
+runExecution()async{
+final collectionName = chatUserName+loggedUserName;
+final jsonData = '{"collectionName": "$collectionName","chatUserId": "$chatUserId","loggedUserId": "$loggedUserId"}';
+      final execution = await function.createExecution(
+          data: jsonData, functionId: "myFunctionId");
+      if (execution.status == 'completed') {
+        setState(() {
+          isExecutionRunSuccessful = true;
+        });
+      }
+}
