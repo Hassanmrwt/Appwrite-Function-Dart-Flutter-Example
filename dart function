@@ -1,0 +1,32 @@
+ //This example just shows how to get data out of your payload
+ import "dart:convert";
+
+Future<void> start(final req, final res) async {
+  Map<String, dynamic> data = jsonDecode(req.payload);
+
+  final model = Model.fromJson(data);
+  final name = model.collectionName;
+  res.json({
+    'name': name,
+    'Modeled': data,
+  });
+}
+
+class Model {
+  Model(
+      {required this.chatUserId,
+      required this.collectionName,
+      required this.loggedUserId});
+  final String collectionName;
+  final String loggedUserId;
+  final String chatUserId;
+  factory Model.fromJson(Map<String, dynamic> data) {
+    final collectionName = data['collectionName'] as String;
+    final chatUserId = data['chatUserId'] as String;
+    final loggedUserId = data['loggedUserId'] as String;
+    return Model(
+        collectionName: collectionName,
+        chatUserId: chatUserId,
+        loggedUserId: loggedUserId);
+  }
+}
